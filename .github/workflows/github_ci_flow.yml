@@ -1,4 +1,4 @@
-name: Marvel CI build
+name: Marvel CI Build
 
 on:
   pull_request:
