@@ -1,4 +1,4 @@
-package com.nology.custommarvelapi.exceptions;
+package com.nology.superheroservices.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,7 +11,7 @@ public class SuperheroNotFoundExceptionAdvice {
         @ResponseBody
         @ExceptionHandler(SuperheroNotFoundException.class)
         @ResponseStatus(HttpStatus.BAD_REQUEST)
-        String MarvelCharacterNotSeededHandler(SuperheroNotFoundException ex) {
+        String SuperheroNotSeededHandler (SuperheroNotFoundException ex) {
             return ex.getMessage();
         }
 }

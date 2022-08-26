@@ -1,42 +1,49 @@
-package com.nology.custommarvelapi.models;
+package com.nology.superheroservices.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
-@Table(name = "POWERSTATS")
-public class Powerstats {
+@Table(name = "powerstats")
+public class Powerstats implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "SUPERHERO_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "SUPERHERO_ID")
+    @JsonIgnore
+    @OneToOne(mappedBy="powerstats", cascade = CascadeType.ALL)
     private Superhero superhero;
 
-    @Column(name = "INTELLIGENCE")
+    @Column(name = "intelligence", nullable = false)
     private Integer intelligence;
 
-    @Column(name = "STRENGTH")
+    @Column(name = "strength", nullable = false)
     private Integer strength;
 
-    @Column(name = "SPEED")
+    @Column(name = "speed", nullable = false)
     private Integer speed;
 
-    @Column(name = "DURABILITY")
+    @Column(name = "durability", nullable = false)
     private Integer durability;
 
-    @Column(name = "POWER")
+    @Column(name = "power", nullable = false)
     private Integer power;
 
-    @Column(name = "COMBAT")
+    @Column(name = "combat", nullable = false)
     private Integer combat;
 
     public Powerstats() {
     }
 
-    public Powerstats(Integer intelligence, Integer strength, Integer speed, Integer durability, Integer power, Integer combat) {
+    public Powerstats(Long id, Superhero superhero, Integer intelligence, Integer strength, Integer speed, Integer durability, Integer power, Integer combat) {
+        this.id = id;
+        this.superhero = superhero;
         this.intelligence = intelligence;
         this.strength = strength;
         this.speed = speed;
@@ -109,18 +116,4 @@ public class Powerstats {
         this.combat = combat;
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

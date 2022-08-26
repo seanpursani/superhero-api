@@ -1,4 +1,4 @@
-package com.nology.custommarvelapi.services;
+package com.nology.superheroservices.services;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
