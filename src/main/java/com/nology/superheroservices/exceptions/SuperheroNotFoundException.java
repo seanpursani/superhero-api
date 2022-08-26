@@ -1,4 +1,4 @@
-package com.nology.custommarvelapi.exceptions;
+package com.nology.superheroservices.exceptions;
 
 public class SuperheroNotFoundException extends Exception {
     public SuperheroNotFoundException(Long id, String errorMessage) {
