@@ -23,7 +23,7 @@ jobs:
       - name: Build & Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: test/superhero_api
+          image: seanpursani/superhero_api
           tags: latest
           registry: docker.io
           dockerfile: Dockerfile
