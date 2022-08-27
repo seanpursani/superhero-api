@@ -55,6 +55,12 @@ public class Superhero implements Serializable {
         this.user = user;
     }
 
+    public Superhero(String name, String imageUrl, Powerstats powerstats) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.powerstats = powerstats;
+    }
+
     public Long getId() {
         return id;
     }
