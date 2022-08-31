@@ -1,4 +1,5 @@
-superheroApiPublicKey: 10159069624056395
+marvelApiPublicKey: 0611500ccb5620d347310076c61af07d
+marvelApiPrivateKey: 9bd768bfbbd51ec0adac070ddf5d80b97c5fb89c
 
 server:
   port: 8082

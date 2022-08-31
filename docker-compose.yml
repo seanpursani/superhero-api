@@ -22,9 +22,9 @@ services:
       PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: secret
       PG_ADMIN_CONFIG_SERVER_MODE: 'False'
-      PGADMIN_LISTEN_PORT: 80
+      PGADMIN_LISTEN_PORT: 81
     ports:
-      - "8080:80"
+      - "8081:81"
     networks:
       - postgres
     volumes:

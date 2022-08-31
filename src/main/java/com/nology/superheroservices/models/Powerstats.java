@@ -52,6 +52,15 @@ public class Powerstats implements Serializable {
         this.combat = combat;
     }
 
+    public Powerstats(Integer intelligence, Integer strength, Integer speed, Integer durability, Integer power, Integer combat) {
+        this.intelligence = intelligence;
+        this.strength = strength;
+        this.speed = speed;
+        this.durability = durability;
+        this.power = power;
+        this.combat = combat;
+    }
+
     public Long getId() {
         return id;
     }
