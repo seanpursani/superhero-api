@@ -65,7 +65,6 @@ public class FightController {
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
 
-
     @PutMapping("/fights/{fightId}/{supId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> updateFightWinner(@PathVariable Long supId, @PathVariable Long fightId) throws SuperheroNotFoundException, FightNotFoundException {
