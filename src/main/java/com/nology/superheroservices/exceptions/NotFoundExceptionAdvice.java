@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class SuperheroNotFoundExceptionAdvice {
-        @ResponseBody
-        @ExceptionHandler(SuperheroNotFoundException.class)
-        @ResponseStatus(HttpStatus.BAD_REQUEST)
-        String SuperheroNotSeededHandler (SuperheroNotFoundException ex) {
-            return ex.getMessage();
-        }
+public class NotFoundExceptionAdvice {
+    @ResponseBody
+    @ExceptionHandler({ NotFoundException.class })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String NotSeededHandler(NotFoundException ex) {
+        return ex.getMessage();
+    }
 }
-
