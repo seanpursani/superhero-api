@@ -12,7 +12,8 @@ import java.util.Objects;
 @Table(name = "powerstats")
 public class Powerstats implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "power_gen")
+    @SequenceGenerator(name = "power_gen", sequenceName = "power_seq")
     @Column(name = "id")
     private Long id;
 

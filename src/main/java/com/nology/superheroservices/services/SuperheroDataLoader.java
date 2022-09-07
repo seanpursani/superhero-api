@@ -12,34 +12,44 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import javax.naming.ServiceUnavailableException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
-public class DataLoader implements ApplicationRunner {
+public class SuperheroDataLoader implements ApplicationRunner {
 
     private final SuperheroRepository superheroRepository;
     @Value("${marvelApiPublicKey}")
     public String publicKey;
     @Value("${marvelApiPrivateKey}")
     public String privateKey;
+    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
+    private int batchSize;
 
     @Autowired
-    public DataLoader(SuperheroRepository superheroRepository) {
+    public SuperheroDataLoader(SuperheroRepository superheroRepository) {
         this.superheroRepository = superheroRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         try {
-            for (int i = 97; i < 122; i++) {
-                this.seedSuperheroes((char) i);
+            List<Superhero> superheroList = new ArrayList<>();
+            for (int i = 97; i < 122; i++) { // Iterate over alphabet's equivalent ASCII number and cast to char
+                this.seedSuperheroes((char) i, superheroList);
+                superheroList.clear();
             }
+
         } catch (Exception e) {
             throw new ServiceUnavailableException("Unable to seed superheroes. Exiting program...");
         }
     }
 
-    private void seedSuperheroes(char startsWith) throws Exception {
+    private void seedSuperheroes(char startsWith, List<Superhero> superheroList) throws Exception {
         try {
+            System.out.println("Seeding 20 Characters");
+            System.out.println(LocalDateTime.now());
             String location = "https://gateway.marvel.com/v1/public/characters?"
                     + "nameStartsWith=" + startsWith + "&ts="
                     + SuperheroUtil.timeStamp + "&apikey="
@@ -71,13 +81,13 @@ public class DataLoader implements ApplicationRunner {
                         image,
                         powerstats
                 );
-
-                superheroRepository.save(superhero);
+                superheroList.add(superhero);
             });
-
         } catch (Exception e) {
             throw new Exception("Error seeding characters from Marvel API.");
         }
+        superheroRepository.saveAll(superheroList);
+        System.out.println(LocalDateTime.now());
     }
 }
 
