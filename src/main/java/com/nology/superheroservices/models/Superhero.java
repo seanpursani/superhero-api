@@ -16,8 +16,9 @@ import java.util.Set;
 @Table(name = "superhero")
 public class Superhero implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hero_gen")
+    @SequenceGenerator(name = "hero_gen", sequenceName = "hero_seq")
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -35,7 +36,9 @@ public class Superhero implements Serializable {
                 CascadeType.REFRESH
         },
         mappedBy = "superheroes")
-    @JsonIgnore
+//    @Transient
+    @JsonIdentityInfo(scope = Superhero.class, generator= ObjectIdGenerators.PropertyGenerator.class, property="id") // ignore all other properties except id
+    @JsonIdentityReference(alwaysAsId=true)
     private Set<Fight> fights = new HashSet<>();
 
     @JsonIdentityInfo(scope = Superhero.class, generator= ObjectIdGenerators.PropertyGenerator.class, property="id") // ignore all other properties except id
