@@ -1,16 +1,11 @@
 package com.nology.superheroservices.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "superhero")
@@ -36,13 +31,13 @@ public class Superhero implements Serializable {
                 CascadeType.REFRESH
         },
         mappedBy = "superheroes")
-//    @Transient
     @JsonIdentityInfo(scope = Superhero.class, generator= ObjectIdGenerators.PropertyGenerator.class, property="id") // ignore all other properties except id
     @JsonIdentityReference(alwaysAsId=true)
     private Set<Fight> fights = new HashSet<>();
 
-    @JsonIdentityInfo(scope = Superhero.class, generator= ObjectIdGenerators.PropertyGenerator.class, property="id") // ignore all other properties except id
-    @JsonIdentityReference(alwaysAsId=true)
+//    @JsonIdentityInfo(scope = Superhero.class, generator= ObjectIdGenerators.PropertyGenerator.class, property="ID") // ignore all other properties except id
+//    @JsonIdentityReference(alwaysAsId=true)
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

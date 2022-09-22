@@ -56,26 +56,31 @@ public class FightController {
         return fightModelAssembler.toModel(response);
     }
 
-    @PostMapping("/fights")
+    @PostMapping("/fights/{supIds}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EntityModel<Fight>> newFight(@RequestBody Fight newFight) throws UserNotFoundException {
+    public ResponseEntity<EntityModel<Fight>> newFight(@RequestBody Fight newFight, @PathVariable List<Long> supIds) throws UserNotFoundException {
         userRepository.findById(newFight.getUser().getId())
                 .orElseThrow(() -> new UserNotFoundException((long) -1, "Unable to find fight"));
+        superheroRepository.findAllById(supIds).forEach(newFight::addSuperhero);
         EntityModel<Fight> entityModel = fightModelAssembler.toModel((fightRepository.save(newFight)));
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
 
     @PutMapping("/fights/{fightId}/{supId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<?> updateFightWinner(@PathVariable Long supId, @PathVariable Long fightId) throws SuperheroNotFoundException, FightNotFoundException {
+    public ResponseEntity<?> updateFightWinner(@PathVariable Long fightId, @PathVariable Long supId) throws SuperheroNotFoundException, FightNotFoundException {
         Superhero superhero = superheroRepository.findById(supId)
                 .orElseThrow(() -> new SuperheroNotFoundException(supId, "Unable to find superhero "));
         Fight updatedFight = fightRepository.findById(fightId)
                 .map(fight -> {
-                    fight.setWinner(superhero.getName());
+                    if (fight.getSuperheroes().contains(superhero)) {
+                        fight.setWinner(superhero.getName());
+                    } else {
+                        throw new IllegalArgumentException("Requested fighter did not fight");
+                    }
                     return fightRepository.save(fight);
                 })
-                .orElseThrow(() -> new FightNotFoundException(fightId, "Unable to find fight "));
+                .orElseThrow(() -> new FightNotFoundException(fightId, "Unable to find requested fight "));
         EntityModel<Fight> entityModel = fightModelAssembler.toModel(updatedFight);
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }

@@ -1,9 +1,6 @@
 package com.nology.superheroservices.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +10,8 @@ import java.util.*;
 @Table(name = "fight")
 public class Fight implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fight_gen")
+    @SequenceGenerator(name = "fight_gen", sequenceName = "fight_seq")
     @Column(name = "id")
     private Long id;
 
