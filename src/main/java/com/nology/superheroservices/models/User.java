@@ -1,8 +1,6 @@
 package com.nology.superheroservices.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +11,8 @@ import java.util.List;
 @Table(name = "\"user\"") //escape the table name when using reserved keywords
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_gen")
+    @SequenceGenerator(name = "user_gen", sequenceName = "user_seq")
     @Column(name = "id")
     private Long id;
 
@@ -22,7 +21,7 @@ public class User implements Serializable {
 
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     @JsonIdentityReference(alwaysAsId=true)
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true) // prevent infinite recursion/ circular referencing in bidirectional entities
     private List<Superhero> userCreatedHeroes;
 
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")

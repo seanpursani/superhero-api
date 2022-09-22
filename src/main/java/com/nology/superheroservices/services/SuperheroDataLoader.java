@@ -36,7 +36,7 @@ public class SuperheroDataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         try {
             List<Superhero> superheroList = new ArrayList<>();
-            for (int i = 97; i < 122; i++) { // Iterate over alphabet's equivalent ASCII number and cast to char
+            for (int i = 97; i < 98; i++) { // Iterate over alphabet's equivalent ASCII number and cast to char #122
                 this.seedSuperheroes((char) i, superheroList);
                 superheroList.clear();
             }
