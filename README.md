@@ -2,7 +2,8 @@
 # Superhero Api
 
 This Spring Boot Api intends to consume the official Marvel Api and store Superhero objects in a PostgreSQL object-relational database.
-It uses CRUD operations to allow users to interact with resources through a series of endpoints listed in the controllers. 
+It uses CRUD operations to allow users to interact with resources through a series of endpoints listed in the controllers. It attempts to
+follow the conventions of a RESTful api and is purely for educational purposes. 
 
 # Lessons Learned
 
