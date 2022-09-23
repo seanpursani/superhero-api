@@ -9,8 +9,13 @@ It uses CRUD operations to allow users to interact with resources through a seri
 * Spring Boot
 * Spring Hateoas to add links for more RESTful controllers
 * Containerizing and Deploying to Docker Hub 
-* PostgreSQL and PgAdmin
-* JPA to map relationships between entities
-* OpenApi and Swagger ui
+* PostgreSQL and PgAdmin Containers
+* JPA annotations to map relationships between entities
+
+# Areas to improve and next steps
+
+* Batch inserting to improve performance when consuming the Marvel API
+* Unit Testing 
+* Customising Swagger UI for readable documentation 
 
 
