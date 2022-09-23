@@ -10,7 +10,7 @@ It uses CRUD operations to allow users to interact with resources through a seri
 * Spring Hateoas to add links for more RESTful controllers
 * Containerizing and Deploying to Docker Hub 
 * PostgreSQL and PgAdmin Containers
-* JPA annotations to map relationships between entities
+* Spring Data, JPA annotations to map relationships between entities
 * Postman to test CRUD operations 
 
 # Areas to improve and next steps
